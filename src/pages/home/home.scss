@@ -1,0 +1,1376 @@
+.page__content {
+  @include laptop {
+    position: relative;
+    background-color: $wc;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(50%);
+      width: 1px;
+      background-image: linear-gradient(to top, rgba(105, 139, 164, 0.40) 50%, rgba(255, 255, 255, 0) 0%);
+      background-position: bottom;
+      background-size: 1px 20px;
+      /* 15px — це загальна довжина (риска + проміжок) */
+      background-repeat: repeat-y;
+
+      height: 100%;
+      z-index: 1;
+    }
+
+    section {
+      position: relative;
+      z-index: 2;
+    }
+  }
+}
+
+.home-hero {
+  height: 100vh;
+  width: 100%;
+  background-color: $wc;
+
+  &__img-wrap {
+    height: 70%;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(16, 24, 32, 0.00) 0%, rgba(16, 24, 32, 0.80) 100%);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 30% 50%;
+
+      @include laptop {
+        object-position: 30% 50%;
+      }
+    }
+  }
+
+
+  &__container {
+    background-color: $wc;
+    display: flex;
+    align-items: stretch;
+    padding-top: 36px;
+    padding-bottom: 68px;
+    position: relative;
+    justify-content: space-between;
+    gap: 12px;
+
+    @include tablet {
+      padding-top: 40px;
+      padding-bottom: 80px;
+    }
+  }
+
+  &__block {
+    position: relative;
+  }
+}
+
+.home-hero__block {
+  position: relative;
+  // flex: 1;
+  display: flex;
+  align-items: flex-end;
+
+  @include laptop {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  h1 {
+    @include super-title;
+    color: white;
+    position: absolute;
+    bottom: calc(100% + 60px);
+    left: 0;
+    width: 80vw;
+
+    @include tablet {
+
+      bottom: calc(100% + 80px);
+
+    }
+
+    @include laptop {
+      position: static;
+      color: $accent-color;
+      width: fit-content;
+    }
+  }
+
+  .btn-down__wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @include laptop {
+      span {
+        display: none;
+      }
+
+      ;
+    }
+
+    span {
+      @include tiny-text;
+      color: $accent-color;
+      text-transform: uppercase;
+    }
+  }
+
+  .btn-down {
+    margin-top: auto;
+    width: 28px;
+    height: 48px;
+    position: relative;
+    border-radius: 1000px;
+    border: 1px solid rgba(105, 139, 164, 0.40);
+    overflow: hidden;
+
+    @include laptop {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .mobile-dot {
+      width: 4px;
+      height: 4px;
+      background-color: $accent-color;
+      /* Колір точки */
+      border-radius: 50%;
+      position: absolute;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      /* Прив'язка анімації: назва, тривалість, тип, нескінченно */
+      animation: swipeUp 2s ease-in-out infinite;
+
+      @include laptop {
+        display: none;
+        animation: none;
+      }
+    }
+
+    .laptop-arrow {
+      display: none;
+
+      @include laptop {
+        display: block;
+        animation: swipeDown 2s ease-in-out infinite;
+
+      }
+
+    }
+  }
+}
+
+@keyframes swipeUp {
+  0% {
+    transform: translate(-50%, 0);
+    /* Початкова позиція (знизу) */
+    opacity: 0;
+    /* Починаємо з невидимості */
+  }
+
+  20% {
+    opacity: 1;
+    /* Швидко стає видимою */
+  }
+
+  80% {
+    opacity: 1;
+    /* Залишається видимою під час руху */
+  }
+
+  100% {
+    transform: translate(-50%, -30px);
+    /* Рух вгору */
+    opacity: 0;
+    /* Зникає в кінці шляху */
+  }
+}
+
+@keyframes swipeDown {
+  0% {
+    transform: translateY(-40px);
+    /* Починаємо зверху */
+    opacity: 0;
+    /* Невидима */
+  }
+
+  20% {
+    opacity: 1;
+    /* З'являється */
+  }
+
+  80% {
+    opacity: 1;
+    /* Тримається видимою */
+  }
+
+  100% {
+    transform: translateY(10px);
+    /* Доходить до низу */
+    opacity: 0;
+    /* Зникає */
+  }
+}
+
+.home-hero__text-block {
+  width: 220px;
+
+  @include tablet {
+    width: 360px;
+  }
+
+  @include laptop {
+    padding-left: 64px;
+    position: relative;
+    width: 504px;
+  }
+
+  .decor-spot-svg {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 12px;
+    top: 36px;
+
+    @include tablet {
+      width: 24px;
+      height: 24px;
+    }
+
+    @include laptop {
+      left: 0;
+      top: 0;
+    }
+
+  }
+
+  .home-hero__subtitle {
+    @include subtitle-text;
+    color: $accent-color;
+    margin-bottom: 12px;
+
+  }
+
+  .home-hero__text {
+    @include general-text;
+    color: $text-color;
+    margin-bottom: 28px;
+  }
+
+}
+
+//banner 
+
+.banner {
+  position: relative;
+  height: 100vh;
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  @include tablet {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  &__img-wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 60% center;
+
+      @include laptop {
+        object-position: center;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(16, 24, 32, 0.80) 0%, rgba(16, 24, 32, 0.00) 40% 60%, rgba(16, 24, 32, 0.80) 100%);
+    }
+
+  }
+
+  &__content {
+    position: relative;
+    height: 100%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h2 {
+      @include section-title;
+      color: white;
+      align-self: flex-start;
+
+      @include laptop {
+        max-width: 50%;
+      }
+    }
+  }
+
+  &__bottom-wrap {
+    align-self: flex-end;
+
+    @include tablet {
+      width: calc(50% - 20px);
+    }
+
+    @include laptop {
+      width: 37%;
+    }
+
+    p {
+      @include general-text;
+      color: white;
+      font-weight: 400;
+      margin-bottom: 28px;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
+      @include laptop {
+        font-size: vw(32);
+        font-weight: 500;
+      }
+    }
+
+  }
+
+}
+
+//home-location
+
+.home-location {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding-top: 64px;
+  padding-bottom: 24px;
+
+  @include tablet {
+    gap: 80px;
+    padding-top: 60px;
+    padding-bottom: 20px;
+  }
+
+  @include laptop {
+    padding-top: vw(120);
+    padding-bottom: vw(120);
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  &__block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+
+    @include tablet {
+      gap: 80px;
+    }
+
+    @include laptop {
+      width: 50%;
+      gap: 120px;
+      flex-direction: column-reverse;
+
+    }
+
+    .section-title {
+      @include section-title;
+      color: $accent-color;
+    }
+
+
+  }
+
+  &__subblock {
+    display: flex;
+    justify-content: space-between;
+
+    @include tablet {
+      width: 84%;
+    }
+
+    @include laptop {
+      width: 76%;
+    }
+
+    h2 {
+      @include general-text;
+      color: $text-color;
+      margin-top: 88px;
+
+      @include tablet {
+        margin-top: 140px;
+      }
+    }
+
+    .slogan__img-wrap {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $accent-color;
+      margin-bottom: 24px;
+
+      @include tablet {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 40px;
+      }
+    }
+
+    .slogan__text {
+      width: 206px;
+      @include general-text;
+      color: $text-color;
+
+      @include tablet {
+        width: 240px;
+      }
+
+      @include laptop {
+        width: 210px;
+      }
+
+    }
+  }
+
+  &__img-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    @include laptop {
+      gap: vw(260);
+      justify-content: space-between;
+    }
+  }
+
+  &__img-wrap {
+    width: 100%;
+    height: 260px;
+
+    @include tablet {
+      height: 420px;
+    }
+
+    @include laptop {
+      height: 440px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &__text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    @include tablet {
+      gap: 20px;
+      flex-direction: row;
+    }
+
+    @include laptop {
+      gap: 40px;
+    }
+
+    p {
+      @include general-text;
+      color: $text-color;
+      flex: 1;
+    }
+  }
+
+}
+
+.home-advantages {
+
+  padding-top: 64px;
+  padding-bottom: 60px;
+
+  @include tablet {
+    gap: 80px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  @include laptop {
+    padding-top: vw(40);
+    padding-bottom: vw(120);
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  h2 {
+    @include section-title;
+    color: $accent-color;
+    margin-bottom: 24px;
+    width: 100%;
+
+    @include tablet {
+      margin-bottom: 40px;
+    }
+
+    @include laptop {
+      margin-left: auto;
+      width: calc(50% - 40px);
+      margin-bottom: 40px;
+    }
+
+  }
+
+  &>p {
+    @include general-text;
+    color: $text-color;
+    margin-bottom: 60px;
+    width: 65%;
+    margin-left: auto;
+
+    @include tablet {
+
+
+      width: calc(50% - 20px);
+    }
+
+    @include laptop {
+      font-size: vw(32);
+
+      font-weight: 500;
+      max-width: 50%;
+      margin-right: calc(50% + 40px);
+      text-align: right;
+      color: $accent-color;
+      margin-bottom: vw(120);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @include tablet {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    @include laptop {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0;
+    }
+
+  }
+
+}
+
+.advantages-item {
+  border: 1px solid #EFDCCB;
+  padding: 10px;
+  padding-bottom: 24px;
+  transform: rotate(-2deg);
+  width: 100%;
+  background-color: $wc;
+  position: sticky;
+  top: 80px;
+
+  &:nth-child(2n) {
+    transform: rotate(2deg);
+    top: 100px;
+  }
+
+
+  &:nth-child(3) {
+    top: 120px;
+  }
+
+  &:nth-child(4) {
+    top: 140px;
+  }
+
+  &:nth-child(5) {
+    top: 160px;
+  }
+
+
+  @include tablet {
+    position: static;
+    width: calc(50% - 10px);
+
+    &:nth-child(1) {
+      transform: rotate(7deg) translate(-13px, -2px);
+    }
+
+    &:nth-child(2) {
+      transform: rotate(-4deg) translate(-13px, -29px);
+    }
+
+    &:nth-child(3) {
+      transform: rotate(-6deg) translate(-20px, -15px);
+    }
+
+    &:nth-child(4) {
+      transform: rotate(3deg) translate(-30px, -49px);
+    }
+
+    &:nth-child(5) {
+      transform: rotate(5deg) translate(3px, -15px);
+    }
+
+    &:nth-child(6) {
+      transform: rotate(-3deg) translate(-10px, -59px);
+    }
+  }
+
+  @include laptop {
+    width: calc(100% / 6 + vw(40));
+    margin-right: vw(-40);
+
+
+    &:nth-child(3) {
+      transform: rotate(3deg) translate(-20px, -15px);
+      position: relative;
+      z-index: 3;
+      top: 0;
+    }
+
+    &:nth-child(4) {
+      position: relative;
+      z-index: 2;
+      transform: rotate(-6deg)translate(-30px, -49px);
+      top: 0;
+    }
+
+    &:nth-child(5) {
+      transform: rotate(5deg) translate(-30px, -15px);
+    }
+  }
+
+  &__img-wrap {
+    width: 100%;
+
+    aspect-ratio: 331/290;
+    margin-bottom: 16px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__text-wrap {
+    @include subtitle-text;
+    color: $accent-color;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 70%;
+    font-weight: 700;
+
+    @include laptop {
+      font-size: vw(32);
+      max-width: 90%;
+    }
+  }
+}
+
+.home-gallery {
+  background-color: $accent-color;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  height: 100svh;
+  position: relative;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+
+
+
+  @include tablet {
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+  }
+
+  @include laptop {
+    display: flex;
+    gap: vw(80);
+    height: auto;
+    min-height: 100vh;
+    flex-direction: row;
+  }
+
+  &__text-block {
+    @include laptop {
+      flex: 1;
+      height: calc(100vh - 120px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: sticky;
+      top: 80px;
+      left: 0;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+
+  .section-title {
+    @include section-title;
+    color: white;
+    margin-bottom: 60px;
+
+    @include tablet {
+      margin-bottom: 80px;
+    }
+
+    @include laptop {
+      margin-bottom: vw(120);
+    }
+
+  }
+
+  &__subblock {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: auto;
+
+    @include tablet {
+      width: 84%;
+      margin-bottom: 80px;
+    }
+
+    @include laptop {
+      width: 76%;
+    }
+
+    h2 {
+      @include general-text;
+      color: $wc;
+      margin-top: 88px;
+
+      @include tablet {
+        margin-top: 140px;
+      }
+    }
+
+    .slogan__img-wrap {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $wc;
+      margin-bottom: 24px;
+
+      @include tablet {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 40px;
+      }
+
+      svg {
+        width: 54.4px;
+        height: 42.24px;
+
+        @include tablet {
+          width: 85px;
+          height: 66px;
+        }
+      }
+    }
+
+    .slogan__text {
+      width: 206px;
+      @include general-text;
+      color: $wc;
+
+      @include tablet {
+        width: 240px;
+      }
+
+      @include laptop {
+        width: 210px;
+      }
+
+    }
+  }
+
+  .swiper__counter {
+    display: none;
+
+    @include laptop {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+      @include general-text;
+      color: $wc;
+    }
+  }
+
+
+  .swiper-gallery {
+    width: 100%;
+    margin-top: auto;
+
+    @include laptop {
+      display: none;
+    }
+
+    .swiper-slide {
+      height: 100%;
+      aspect-ratio: 330/260;
+
+      a {
+        width: 100%;
+        height: 100%;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+  }
+}
+
+.home-gallery__laptop-list {
+  display: none;
+
+  @include laptop {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    li {
+      aspect-ratio: 880/640;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+  }
+}
+
+//progress-block
+
+.home-progress {
+  padding-top: 64px;
+  padding-bottom: 64px;
+  max-width: 100%;
+  overflow: hidden;
+
+  @include tablet {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  @include laptop {
+    padding-top: vw(120);
+    padding-bottom: vw(120);
+  }
+
+  &__text-wrap {
+
+    @include laptop {
+      position: relative;
+    }
+
+    .section-title {
+      @include section-title;
+      color: $accent-color;
+      margin-bottom: 60px;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
+      @include laptop {
+        max-width: calc(50% - 40px);
+        margin-left: auto;
+      }
+
+    }
+  }
+
+  &__title-wrap {
+    display: flex;
+    justify-content: space-between;
+
+    @include laptop {
+      max-width: calc(50% - 40px);
+      margin-left: auto;
+    }
+
+    h2 {
+      @include general-text;
+      color: $text-color;
+
+      @include laptop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+    }
+  }
+
+  &__descr-wrap {
+    width: 58%;
+    margin-bottom: 60px;
+
+    @include tablet {
+      width: 354px;
+      margin-bottom: 80px;
+    }
+
+    @include laptop {
+      width: 670px;
+      margin-bottom: 60px;
+    }
+
+    p {
+      @include general-text;
+      color: $text-color;
+      margin-bottom: 24px;
+
+      @include tablet {
+        margin-bottom: 40px;
+      }
+
+      @include laptop {
+        @include subtitle-text;
+        color: $accent-color;
+      }
+    }
+  }
+}
+
+.swiper-progress {
+  position: relative;
+
+  .swiper-slide {
+    width: fit-content;
+  }
+}
+
+.progress-card {
+  width: 100%;
+  padding: 10px 10px 24px;
+  background-color: $wc;
+  display: block;
+  width: 320px;
+  border: 1px solid #EFDCCB;
+
+
+  @include tablet {
+    padding-bottom: 40px;
+  }
+
+  @include laptop {
+    width: vw(340);
+    min-width: 300px;
+    padding-bottom: vw(40);
+  }
+
+  &__img-wrap {
+    aspect-ratio: 300 / 362;
+    width: 100%;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      opacity: 0.8;
+      background: linear-gradient(180deg, rgba(16, 24, 32, 0.00) 0%, rgba(16, 24, 32, 0.80) 100%);
+    }
+
+    @include tablet {
+      margin-bottom: 40px;
+    }
+
+    @include laptop {
+      margin-bottom: vw(40);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    z-index: 1;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      position: static;
+      width: 24px;
+      height: 24px;
+      transform: none;
+      margin: 0;
+
+      svg {}
+    }
+
+  }
+
+  &__counter {
+    @include general-text;
+    color: $wc;
+  }
+
+  &__text-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    @include general-text;
+    color: $text-color;
+
+    .progress-card__month {
+      @include subtitle-text;
+      font-weight: 700;
+      color: $accent-color;
+    }
+  }
+
+}
+
+.swiper-btns {
+  display: none;
+
+  @include laptop {
+    display: flex;
+    align-items: center;
+    transform: translateY(-100%);
+    flex-direction: row;
+    gap: 8px;
+    position: absolute;
+    top: -60px;
+    left: 0;
+
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    background-color: $accent-color;
+    transition: all .3s ease-in-out;
+
+    &.swiper-button-disabled {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+}
+
+.f-button.is-arrow.is-next,
+.f-button.is-arrow.is-prev {
+  width: 48px;
+  height: 48px;
+  background-color: $accent-color;
+  border-radius: 0;
+}
+
+.home-philosophy {
+  position: relative;
+  height: 100vh;
+  padding-top: 24px;
+  padding-bottom: 24px;
+
+  @include tablet {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .home-location__block,
+  .home-location__img-block {
+    position: relative;
+    z-index: 3;
+
+    h2,
+    .home-location__text-wrap p,
+    .section-title,
+    .slogan__text {
+      color: white;
+    }
+  }
+
+  .banner__img-wrap {
+    &::after {
+      backdrop-filter: blur(3px);
+
+      @include laptop {
+        backdrop-filter: none;
+      }
+    }
+
+    img {
+      object-position: 20% 50%;
+
+      @include laptop {
+        object-position: center;
+      }
+    }
+  }
+
+  .home-location__img-block {
+    justify-content: flex-end;
+
+    @include laptop {
+      justify-content: flex-start;
+    }
+
+
+  }
+
+  .slogan__img-wrap svg {
+    width: 37.76px;
+    height: 54.4px;
+
+    @include tablet {
+      width: 59px;
+      height: 85px;
+    }
+  }
+
+  .home-location__block {
+    flex: 2.5;
+    justify-content: space-between;
+
+    @include laptop {
+      flex: 1;
+      justify-content: flex-start;
+    }
+  }
+
+  .home-location__text-wrap {
+    display: inline;
+
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  .home-location__text-wrap p {
+    display: inline;
+
+    @include tablet {
+      display: block;
+    }
+
+    @include laptop {
+      @include subtitle-text;
+
+    }
+  }
+}
+
+.swiper-news {
+  position: relative;
+
+  .swiper-slide {
+    width: fit-content;
+  }
+}
+
+.news-card {
+  width: 100%;
+  padding: 10px 10px 24px;
+  background-color: $wc;
+  display: block;
+  width: 320px;
+  border: 1px solid #EFDCCB;
+
+
+  @include tablet {
+    width: 350px;
+    padding-bottom: 40px;
+  }
+
+  @include laptop {
+    width: vw(420);
+    min-width: 320px;
+    padding-bottom: vw(50);
+  }
+
+  &__img-wrap {
+    aspect-ratio: 300 / 362;
+    width: 100%;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+
+    @include tablet {
+      margin-bottom: 40px;
+    }
+
+    @include laptop {
+      margin-bottom: vw(40);
+    }
+
+    // &::after {
+    //   content: "";
+    //   position: absolute;
+    //   bottom: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 35%;
+    //   opacity: 0.8;
+    //   background: linear-gradient(180deg, rgba(16, 24, 32, 0.00) 0%, rgba(16, 24, 32, 0.80) 100%);
+    // }
+
+    .news-label__wrap {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .news-label,
+      .news-date {
+        padding: 6px 12px;
+        height: fit-content;
+
+        span {
+          font-size: 12px;
+
+          @include tablet {
+            font-size: 14px;
+          }
+
+          @include laptop {
+            font-size: 12px;
+          }
+        }
+      }
+
+    }
+
+    @include tablet {
+      margin-bottom: 40px;
+    }
+
+    @include laptop {
+      margin-bottom: vw(40);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+    }
+  }
+
+  &__text-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    @include general-text;
+    color: $text-color;
+
+    .news-card__month {
+      @include subtitle-text;
+      font-weight: 700;
+      color: $accent-color;
+    }
+  }
+
+}
