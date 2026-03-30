@@ -11,9 +11,10 @@ mixin header
           <path d="M17.175 22.9102C15.2398 22.7693 13.7486 21.5702 13.5154 21.3324L14.1897 19.8645C14.7028 20.6775 15.9212 21.7817 17.3743 22.0092C19.0878 22.2774 20.2417 20.7334 20.0365 19.6747C19.706 17.9709 18.0434 17.8808 16.7033 17.2058C15.4429 16.5704 14.2536 15.5845 14.1731 13.9611C14.0688 11.8606 15.9063 11.0302 17.3964 11.0302C19.2902 11.0302 20.7849 12.4659 20.7849 12.4659L20.1716 13.8035C20.1716 13.8035 19.2696 11.8131 17.3877 11.8452C16.5155 11.8601 15.8549 12.6009 15.8675 13.5497C15.8836 14.7519 17.0701 15.5542 18.5046 15.9362C19.5759 16.2213 21.5407 16.9647 21.8533 19.1051C22.1919 21.4241 19.8578 23.1055 17.175 22.9102Z" fill="#0F4272"/>
         </svg>
       .header-tools__wrapper 
-       
-        button.general-btn.general-btn--simple.header-btn(type="button" data-call-us-btn aria-label="Request a call back")
+        button.general-btn.general-btn--simple.header-btn.laptop(type="button" data-call-us-btn aria-label="Request a call back")
           span.laptop-mode Зворотній дзвінок
+          
+        button.general-btn.general-btn--simple.header-btn.mobile(type="button" data-mob-call-btn aria-label="Request a call back")
           <svg class="mobile-mode" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M3.46659 0.345529C2.46445 -1.13243 -0.094965 2.49771 0.00272655 4.31916C0.14772 6.95361 1.75154 9.79945 3.97636 12.0242C6.20113 14.249 9.04699 15.8528 11.6814 15.9979C13.4996 16.0987 17.1329 13.5405 15.656 12.535C15.656 12.535 15.6467 12.5284 15.6434 12.5252L12.2713 10.4324C12.2272 10.4041 11.8454 10.2056 11.7918 10.1961C10.9284 10.0325 10.0998 10.8898 9.14823 11.5389C9.02848 11.6208 8.82995 11.6895 8.7039 11.617C7.69238 11.0372 7.07125 10.5146 6.27714 9.72053C5.48299 8.9264 4.95953 8.30849 4.37968 7.29377C4.30745 7.16771 4.38005 6.9691 4.45878 6.84944C5.10789 5.89472 5.96518 5.06922 5.80155 4.20588C5.7921 4.15546 5.59044 3.77051 5.56523 3.72639L3.47538 0.358224C3.47538 0.358224 3.46983 0.348967 3.46659 0.345529Z" fill="#0F4272"/>
           </svg>
@@ -31,7 +32,7 @@ mixin header
         
 
 
-    .overflow(data-call-us__overflow data-lenis-prevent).hidden
+    .overflow(data-call-us__overflow ).hidden
       .modal-form(data-call-us-modal)
         .close-btn(data-call-us-modal-close) 
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -40,7 +41,7 @@ mixin header
         h3.form-title  Залишились запитання?
         p.form-descr Ми готові дати відповідь!
         +form
-    
+      +thank-you-popup
 
 
 

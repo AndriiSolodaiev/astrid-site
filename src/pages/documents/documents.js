@@ -1,5 +1,9 @@
 import "./documents.scss";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/all";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const updateFileSizes = async () => {
   const fileLinks = document.querySelectorAll(".js-file-link");
 
@@ -124,3 +128,74 @@ const newsFunctional = () => {
 };
 
 newsFunctional();
+document.addEventListener("DOMContentLoaded", () => {
+  // Реєструємо ScrollTrigger, якщо він знадобиться для інших блоків
+
+  const tl = gsap.timeline({
+    defaults: {
+      ease: "power2.out", // Плавне сповільнення в кінці
+      duration: 1.2,
+    },
+  });
+
+  // Робимо елементи видимими перед початком
+  tl.set(".header, .documents__img, .documents__list, .documents__title-wrap", {
+    visibility: "visible",
+  });
+
+  // 1. Анімація Header (зверху вниз)
+  tl.from(
+    ".header",
+    {
+      y: -100,
+      opacity: 0,
+      duration: 1,
+    },
+    0,
+  ); // Починаємо в 0 секунд
+
+  // 2. Анімація головного зображення (зверху вниз + легкий scale)
+  tl.from(
+    ".documents__img",
+    {
+      y: -50,
+      scale: 1.1,
+      opacity: 0,
+      duration: 1.5,
+    },
+    0.2,
+  ); // Починаємо з невеликою затримкою від старту
+  tl.from(
+    ".documents__title-wrap",
+    {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      clipPath: "inset(0% 0% 100% 0%)",
+    },
+    "-=0.6",
+  );
+  // 3. Анімація лівого блоку (Заголовок та кнопка "Гортай")
+  // Використовуємо stagger: 0.2 для послідовної появи
+  tl.from(
+    ".documents__list > *",
+    {
+      y: 40,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.2,
+    },
+    "-=0.8",
+  ); // Починаємо раніше, ніж закінчиться попередня анімація
+
+  // 4. Анімація правого блоку з текстом та декоративною іконкою
+
+  ScrollTrigger.create({
+    trigger: ".documents",
+    start: "bottom bottom",
+    end: "bottom top",
+    pin: true, // "Приклеюємо" блок
+    pinSpacing: false, // Наступний блок ігнорує простір і наїжджає
+  });
+});

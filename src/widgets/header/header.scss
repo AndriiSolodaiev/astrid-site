@@ -69,18 +69,18 @@
   transition: all 0.4s ease;
   pointer-events: all;
 
+  @include tablet {
+    padding: 20px;
+  }
 
   @include laptop {
-
+    padding: 40px vw(40);
     justify-content: space-between;
   }
 
 
 
-  @include desktop {
-    height: 150px;
-    justify-content: space-between;
-  }
+
 
   &.scroll-down {
     height: 60px;
@@ -117,7 +117,6 @@
   display: flex;
   align-items: center;
 
-
   @include laptop {
     padding: 7px 28px
   }
@@ -127,8 +126,6 @@
     height: 100%;
   }
 
-
-
   &:hover {
     .rotate-hover {
       transform: rotateY(360deg);
@@ -136,15 +133,10 @@
   }
 
   @include laptop {
-
     transition: all 0.4s ease;
-
   }
 
-  @include desktop {
-    width: 207px;
-    height: 63px;
-  }
+
 }
 
 .header-tools__wrapper {
@@ -169,6 +161,10 @@
 
   @include tablet {
     padding: 16px 28px;
+  }
+
+  @include laptop {
+    padding: vw(16) vw(28);
   }
 
   span {
@@ -376,6 +372,7 @@
   transition: all 0.3s ease-in-out;
   background-color: rgba(16, 24, 32, 0.80);
   backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
   pointer-events: all;
   display: flex;
   visibility: hidden;
@@ -493,9 +490,49 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    background-color: $accent-color;
+    background-color: $wc;
     width: 48px;
     height: 48px;
+
+    border: 1px solid #9AACBB;
+
+    svg {
+      position: relative;
+      z-index: 2;
+
+      path {
+        transition: transform 0.4s ease-in-out;
+      }
+
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $accent-color;
+      z-index: 1;
+      transform: scale(1);
+      border-radius: 50%;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        &::before {
+          transform: scale(0); // Заповнення від центру до країв
+        }
+
+        svg {
+          path {
+            fill: $accent-color; // Колір стрілочки стає білим
+          }
+        }
+      }
+    }
   }
 }
 
@@ -512,6 +549,9 @@
   padding: 18px 28px;
   background-color: $accent-color-2;
   height: 48px;
+  position: relative;
+  overflow: hidden;
+  border: none;
 
   @include laptop {
     padding: vw(18) vw(28);
@@ -523,6 +563,47 @@
     color: $wc;
     text-transform: uppercase;
     white-space: nowrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  svg {
+    position: relative;
+    z-index: 2;
+  }
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1C0000;
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  @media (hover:hover) {
+    &:hover::before {
+      transform: translateY(0);
+    }
+  }
+
+  &.mobile {
+    @include laptop {
+      display: none;
+    }
+  }
+
+  &.laptop {
+    display: none;
+
+    @include laptop {
+      display: flex;
+    }
   }
 
   &--simple {
@@ -530,6 +611,10 @@
 
     span {
       color: $accent-color;
+    }
+
+    &::before {
+      background-color: #E7EEF5;
     }
   }
 
@@ -575,4 +660,20 @@
       }
     }
   }
+}
+
+.home-hero__img-wrap,
+.home-hero__block,
+.home-hero__text-block,
+.home-location__img-block,
+.home-location__block,
+.documents__img,
+.documents__list,
+.documents__title-wrap .header {
+  visibility: hidden;
+}
+
+section {
+  max-width: 100vw;
+  overflow: hidden;
 }

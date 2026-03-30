@@ -31,10 +31,28 @@
   height: 100vh;
   width: 100%;
   background-color: $wc;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(16, 24, 32, 0.80);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+  }
 
   &__img-wrap {
-    height: 70%;
+    flex: 1;
     position: relative;
+    overflow: hidden;
 
     &::after {
       content: "";
@@ -51,6 +69,7 @@
       height: 100%;
       object-fit: cover;
       object-position: 30% 50%;
+      transform: scale(1.15);
 
       @include laptop {
         object-position: 30% 50%;
@@ -60,6 +79,7 @@
 
 
   &__container {
+    width: 100%;
     background-color: $wc;
     display: flex;
     align-items: stretch;
@@ -289,6 +309,7 @@
   height: 100vh;
   padding-top: 24px;
   padding-bottom: 24px;
+  overflow: hidden;
 
   @include tablet {
     padding-top: 40px;
@@ -379,6 +400,14 @@
 
 //home-location
 
+
+/* Початковий стан для запобігання стрибків (FOUC) */
+
+
+
+
+
+
 .home-location {
   display: flex;
   flex-direction: column;
@@ -419,6 +448,10 @@
     .section-title {
       @include section-title;
       color: $accent-color;
+
+      span {
+        display: block;
+      }
     }
 
 
@@ -534,9 +567,9 @@
 }
 
 .home-advantages {
-
+  overflow: visible;
   padding-top: 64px;
-  padding-bottom: 60px;
+  padding-bottom: calc(100vh - 600px);
 
   @include tablet {
     gap: 80px;
@@ -567,6 +600,9 @@
       margin-bottom: 40px;
     }
 
+    span {
+      display: block;
+    }
   }
 
   &>p {
@@ -591,6 +627,10 @@
       text-align: right;
       color: $accent-color;
       margin-bottom: vw(120);
+    }
+
+    span {
+      display: block;
     }
   }
 
@@ -699,7 +739,7 @@
 
   &__img-wrap {
     width: 100%;
-
+    overflow: hidden;
     aspect-ratio: 331/290;
     margin-bottom: 16px;
 
@@ -750,6 +790,7 @@
     height: auto;
     min-height: 100vh;
     flex-direction: row;
+    overflow: visible;
   }
 
   &__text-block {
@@ -1188,9 +1229,11 @@
   .banner__img-wrap {
     &::after {
       backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
 
       @include laptop {
         backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
     }
 
@@ -1233,13 +1276,13 @@
     }
   }
 
-  .home-location__text-wrap {
-    display: inline;
+  // .home-location__text-wrap {
+  //   display: inline;
 
-    @include tablet {
-      display: flex;
-    }
-  }
+  //   @include tablet {
+  //     display: flex;
+  //   }
+  // }
 
   .home-location__text-wrap p {
     display: inline;

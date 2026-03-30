@@ -11,6 +11,7 @@
   }
 
   @include laptop {
+    overflow: visible;
     padding-top: 128px;
     padding-bottom: vw(120);
 
@@ -32,12 +33,23 @@
     }
   }
 
-  &__header {
+  &__container {
     @include laptop {
-      position: relative;
+      // position: relative;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: vw(80);
+
+
+    }
+
+    .sticky-wrap {
+      @include laptop {
+        position: sticky;
+        top: 128px;
+        flex: 1;
+
+      }
     }
 
     .btn-back {
@@ -47,7 +59,7 @@
       margin-bottom: 20px;
 
       @include laptop {
-        margin-bottom: 0px;
+        margin-bottom: 40px;
       }
 
       &__svg-wrap {
@@ -90,17 +102,31 @@
       }
     }
 
-    &>h1 {
+    & h1 {
       @include section-title;
       color: $accent-color;
       margin-bottom: 80px;
 
+      &.title-laptop {
+        display: none;
+      }
+
       @include laptop {
-        position: absolute;
-        top: calc(100% + vw(40));
-        width: calc(50% - vw(40));
+        &.title-mobile {
+          display: none;
+        }
+
+        &.title-laptop {
+          display: block;
+          position: absolute;
+          top: calc(100% + vw(40));
+          left: 0;
+          width: 100%;
+        }
       }
     }
+
+
 
     .single-news__date-wrap {
       display: flex;
@@ -115,8 +141,8 @@
 
       @include laptop {
         flex: 1;
+        height: 69px;
 
-        padding-bottom: 34px;
 
       }
 
@@ -138,6 +164,13 @@
     }
   }
 
+  &__content-wrap {
+    @include laptop {
+
+      flex: 1;
+    }
+  }
+
   &__content {
     width: 100%;
     padding-top: 40px;
@@ -146,11 +179,7 @@
       padding-top: 40px;
     }
 
-    @include laptop {
-      margin-left: auto;
-      width: calc(50% - vw(40));
-
-    }
+    @include laptop {}
 
     img {
       width: 100%;

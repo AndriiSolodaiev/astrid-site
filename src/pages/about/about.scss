@@ -170,10 +170,24 @@
 
 }
 
+.home-hero__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(16, 24, 32, 0.80);
+  backdrop-filter: blur(60px);
+  -webkit-backdrop-filter: blur(60px);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
 //advantages
 
 .home-advantages {
-
+  overflow: visible;
   padding-top: 24px;
   padding-bottom: 40px;
   background-color: $accent-color;
@@ -267,6 +281,7 @@
     }
 
     @include laptop {
+      z-index: 2;
       flex-direction: row;
       flex-wrap: nowrap;
       gap: 0;
@@ -285,6 +300,7 @@
   background-color: $wc;
   position: sticky;
   top: 80px;
+  overflow: hidden;
 
   &:nth-child(2n) {
     transform: rotate(-2deg);
@@ -360,7 +376,7 @@
 
   &__img-wrap {
     width: 100%;
-
+    overflow: hidden;
     aspect-ratio: 331/290;
     margin-bottom: 16px;
 
@@ -394,6 +410,10 @@
 .about-commercial {
   padding-top: 24px;
   padding-bottom: 24px;
+  overflow: hidden;
+  max-width: 100vw;
+  min-height: 100vh;
+  background-color: $wc;
 
   @include tablet {
     padding-top: 60px;
@@ -411,6 +431,7 @@
     height: 100vh;
 
     &::after {
+
       content: "";
       position: absolute;
       top: 0;
@@ -609,6 +630,7 @@
 .about-infra {
   padding-top: 24px;
   padding-bottom: 40px;
+
 
   @include tablet {
     padding-top: 40px;

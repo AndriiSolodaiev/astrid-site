@@ -30,6 +30,69 @@ window.addEventListener("scroll", () => {
 
   lastScroll = currentScroll;
 });
+const formTimeline = gsap.timeline({
+  paused: true,
+  defaults: { ease: "power3.out" },
+});
+
+// Використовуємо xPercent та yPercent всюди.
+// Це додається ДО твого CSS translate(-50%, -50%), а не затирає його.
+const formDirectionFrom =
+  window.innerWidth > 1024
+    ? { xPercent: 100 } // Виїзд справа (буде 100% + твої -50% з CSS)
+    : { yPercent: 20, xPercent: -50 }; // Підпливання знизу на моб (буде 20% + твоє зміщення з CSS)
+
+const formDirectionTo =
+  window.innerWidth > 1024
+    ? { xPercent: 0 } // Повернення до значень CSS
+    : { yPercent: -50, xPercent: -50 };
+
+formTimeline
+  .fromTo(
+    "[data-call-us-modal]",
+    {
+      ...formDirectionFrom,
+      opacity: 0,
+      filter: "blur(15px)",
+    },
+    {
+      ...formDirectionTo,
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 0.5,
+      // В кінці анімації GSAP залишить інлайново xPercent: 0 і yPercent: 0,
+      // що дозволить твоїм CSS стилям працювати коректно.
+    },
+  )
+  .fromTo(
+    ".form-title, .form-descr",
+    {
+      yPercent: 30, // Також замінив на відсотки для стабільності
+      opacity: 0,
+      stagger: 0.1,
+      filter: "blur(10px)",
+      duration: 0.4,
+    },
+    {
+      yPercent: 0, // Також замінив на відсотки для стабільності
+      opacity: 1,
+      stagger: 0.1,
+      filter: "blur(0px)",
+      duration: 0.4,
+    },
+    ">",
+  )
+  .from(
+    ".form-field",
+    {
+      yPercent: 20,
+      opacity: 0,
+      stagger: 0.05,
+      filter: "blur(8px)",
+      duration: 0.4,
+    },
+    "-=0.3",
+  );
 
 const menuTimeline = gsap.timeline({
   paused: true,
@@ -94,6 +157,7 @@ document.body.addEventListener("click", function (evt) {
   const menu = document.querySelector("[data-menu]");
   const menuItem = evt.target.closest(".menu-item");
   const submitBtn = evt.target.closest("[data-btn-submit]");
+  const tyPopup = document.querySelector("[data-ty-popup]");
   if (btnMenuTarget || menuItem) {
     const isHidden = menu.classList.contains("hidden");
 
@@ -115,7 +179,7 @@ document.body.addEventListener("click", function (evt) {
 
     return;
   }
-  if (btnMenuClose || (evt.target === menu)) {
+  if (btnMenuClose || evt.target === menu) {
     window.dispatchEvent(new Event("start-scroll"));
     menuTimeline.reverse();
     setTimeout(() => {
@@ -131,33 +195,50 @@ document.body.addEventListener("click", function (evt) {
     if (overflow.classList.contains("hidden")) {
       window.dispatchEvent(new Event("stop-scroll"));
       overflowMob.classList.add("hidden");
+      formTimeline.play();
       return overflow.classList.remove("hidden");
     }
     return;
   }
-  if (close || submitBtn) {
+  if (submitBtn) {
+    window.dispatchEvent(new Event("succesFormSend"));
+  }
+  if (close) {
     window.dispatchEvent(new Event("start-scroll"));
-    return overflow.classList.add("hidden");
+    formTimeline.reverse();
+    tyPopup.classList.add("hidden");
+    setTimeout(() => {
+      overflow.classList.add("hidden");
+    }, 300);
+    return;
   }
   if (evt.target === overflow) {
     window.dispatchEvent(new Event("start-scroll"));
-    return overflow.classList.add("hidden");
+    formTimeline.reverse();
+    tyPopup.classList.add("hidden");
+    setTimeout(() => {
+      overflow.classList.add("hidden");
+    }, 300);
+    return;
   }
 
   if (btnMob) {
     if (overflowMob.classList.contains("hidden")) {
       window.dispatchEvent(new Event("stop-scroll"));
+
       return overflowMob.classList.remove("hidden");
     }
     return;
   }
   if (closeMob) {
     window.dispatchEvent(new Event("start-scroll"));
+
     return overflowMob.classList.add("hidden");
   }
 
   if (evt.target === overflowMob) {
     window.dispatchEvent(new Event("start-scroll"));
+
     return overflowMob.classList.add("hidden");
   }
 });
