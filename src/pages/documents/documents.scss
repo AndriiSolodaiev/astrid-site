@@ -1,6 +1,7 @@
 // Styles for the documents page
 .documents {
   padding-bottom: 60px;
+  min-height: 100vh;
 
   @include tablet {
     padding-bottom: 80px;

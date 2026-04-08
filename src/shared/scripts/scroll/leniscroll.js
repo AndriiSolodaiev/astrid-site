@@ -2,6 +2,13 @@
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
+
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 // Define a variable that will store the Lenis smooth scrolling object
 let lenis;
 
@@ -20,9 +27,11 @@ export const initSmoothScrolling = () => {
   lenis.on("scroll", () => ScrollTrigger.update());
   window.lenis = lenis;
   window.addEventListener("stop-scroll", () => {
+    document.body.style.overflow = "hidden";
     lenis.stop();
   });
   window.addEventListener("start-scroll", () => {
+    document.body.style.overflow = "visible";
     lenis.start();
   });
 

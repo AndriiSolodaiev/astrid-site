@@ -78,7 +78,7 @@
   @include laptop {
     flex: 1;
     margin-bottom: 0px;
-    width: calc(50% - 40px);
+    width: calc(50% - vw(40));
   }
 
   &__list {
@@ -92,19 +92,24 @@
       flex-wrap: wrap;
       column-gap: 20px;
       row-gap: 60px;
+      justify-content: flex-end;
 
     }
 
     @include laptop {
       column-gap: 0;
       row-gap: vw(60);
-      justify-content: flex-end;
+
     }
   }
 
   &__item {
     @include tablet {
       width: calc(50% - 10px);
+
+      &:last-child {
+        margin-top: -96px;
+      }
     }
 
     @include laptop {
@@ -113,6 +118,7 @@
       &:last-child {
         margin-top: -88px;
       }
+
     }
 
     &-label {
@@ -172,6 +178,9 @@
   justify-content: space-between;
   margin-top: auto;
   width: 100%;
+  position: relative;
+  z-index: 3;
+  background-color: $accent-color;
 
   @include tablet {
     padding-top: 28px;
@@ -206,7 +215,7 @@
 
     flex: 1;
     aspect-ratio: auto;
-    width: calc(50% - 40px)
+    width: calc(50% - vw(40))
   }
 
   iframe {

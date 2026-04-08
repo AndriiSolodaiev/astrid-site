@@ -1,7 +1,7 @@
 .overflow {
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-color: rgba(16, 24, 32, 0.80);
   top: 0;
   z-index: 1000;
@@ -41,7 +41,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  // transform: translate(-50%, -50%);
   width: calc(100% - 24px);
   background: $wc;
   border: none;
@@ -54,6 +54,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &[data-ty-popup] {
+    transform: translate(-50%, -50%);
+
+    @include laptop {
+      transform: translate(0%, 0%);
+    }
+  }
 
   .hidden & {
 

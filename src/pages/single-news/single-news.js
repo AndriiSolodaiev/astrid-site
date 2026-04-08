@@ -3,6 +3,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
+
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 document.addEventListener("DOMContentLoaded", () => {
   // Реєструємо ScrollTrigger, якщо він знадобиться для інших блоків
 

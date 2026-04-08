@@ -10,7 +10,13 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 // Ініціалізація
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
 
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 const formatNumber = (num) => String(num).padStart(2, "0");
 
 /**
@@ -373,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         {
           yPercent: 0,
-          clipPath: "inset(0% 0% 0% 0%)", // Маска повністю відкрита
+          clipPath: "inset(-3%)", // Маска повністю відкрита
           duration: 1,
 
           ease: "power3.out", // Більш плавний фініш для преміального вигляду

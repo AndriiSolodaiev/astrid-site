@@ -7,7 +7,13 @@ html {
 
 body {
   height: 100%;
+  max-width: 100vw;
   background-color: $wc;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+
 }
 
 main {

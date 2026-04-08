@@ -5,7 +5,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
 
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 const swiperComfort = new Swiper(".swiper-comfort", {
   modules: [Navigation, Pagination],
   slidesPerView: 1.1,
@@ -31,10 +37,10 @@ const swiperComfort = new Swiper(".swiper-comfort", {
   },
   on: {
     init: function (swiper) {
-      updateText(swiper, true, ".about-comfort");
+      // updateText(swiper, true, ".about-comfort");
     },
     slideChange: function (swiper) {
-      updateText(swiper, false, ".about-comfort");
+      // updateText(swiper, false, ".about-comfort");
     },
   },
 });
@@ -356,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   ScrollTrigger.create({
     trigger: ".about-commercial",
-    start: "bottom bottom", // Закріплюємо, коли верх секції торкнувся верху екрана
+    start: "top top", // Закріплюємо, коли верх секції торкнувся верху екрана
     pin: true, // Секція застигає
     pinSpacing: false, // Важливо: наступна секція буде ігнорувати простір і наповзати
     end: "bottom top",

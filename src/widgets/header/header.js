@@ -7,11 +7,51 @@ import { gsap, ScrollTrigger } from "gsap/all";
 import { initSmoothScrolling } from "@/shared/scripts/scroll/leniscroll";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
+
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 
 initSmoothScrolling();
 
+document.addEventListener("DOMContentLoaded", () => {
+  const langBtn = document.querySelector("[data-lang-switcher]");
+  const btnText = langBtn.querySelector("span");
+
+  // Перевіряємо, чи ми зараз на англійській версії
+  const isEnglish = window.location.pathname.includes("/en/");
+
+  // Встановлюємо початковий текст кнопки (показуємо ту мову, на яку можна перейти)
+  btnText.textContent = isEnglish ? "EN" : "UA";
+
+  langBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    let newPath;
+    const currentPath = window.location.pathname;
+
+    if (isEnglish) {
+      // Перемикаємо з EN на UA (видаляємо /en/ з шляху)
+      newPath = currentPath.replace("/en/", "/uk/");
+    } else {
+      // Перемикаємо з UA на EN (додаємо /en/ на початок шляху)
+      // Використовуємо регулярний вираз, щоб уникнути подвійних слешів
+      newPath = "/en" + currentPath.replace(/\/$/, "");
+    }
+    console.log("New path:", window.location.origin + newPath + window.location.search);
+    // Очищення зайвих слешів, якщо вони виникли при заміні
+    newPath = newPath.replace(/\/+/g, "/");
+
+    window.location.href = window.location.origin + newPath + window.location.search;
+  });
+});
+
 let lastScroll = 0;
 const header = document.querySelector(".header");
+
 const scrollThreshold = 10; // мінімальна зміна для реагування
 
 window.addEventListener("scroll", () => {
@@ -200,9 +240,7 @@ document.body.addEventListener("click", function (evt) {
     }
     return;
   }
-  if (submitBtn) {
-    window.dispatchEvent(new Event("succesFormSend"));
-  }
+
   if (close) {
     window.dispatchEvent(new Event("start-scroll"));
     formTimeline.reverse();

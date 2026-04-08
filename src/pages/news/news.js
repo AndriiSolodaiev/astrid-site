@@ -14,7 +14,13 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.normalizeScroll(true);
 
+// Допомагає уникнути стрибків при закріпленні елементів
+ScrollTrigger.config({
+  ignoreMobileResize: true,
+  anticipatePin: 1,
+});
 const newsFunctional = () => {
   const newsSection = document.querySelector(".news");
   const newsList = document.querySelector(".news__list");
