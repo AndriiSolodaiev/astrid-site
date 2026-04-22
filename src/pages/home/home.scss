@@ -307,6 +307,7 @@
 .banner {
   position: relative;
   height: 100vh;
+  height: var(--ios-height, 100vh);
   padding-top: 24px;
   padding-bottom: 24px;
   overflow: hidden;
@@ -575,6 +576,7 @@
   overflow: visible;
   padding-top: 64px;
   padding-bottom: calc(100vh - 600px);
+  padding-bottom: calc(var(--ios-height, 100vh) - 600px);
 
   @include tablet {
     gap: 80px;
@@ -778,6 +780,7 @@
   padding-top: 24px;
   padding-bottom: 24px;
   height: 100svh;
+  height: calc(var(--ios-vh, 1svh) * 100);
   position: relative;
   max-width: 100%;
   display: flex;
@@ -796,6 +799,7 @@
     gap: vw(80);
     height: auto;
     min-height: 100vh;
+    min-height: var(--ios-height, 100vh);
     flex-direction: row;
     overflow: visible;
   }
@@ -804,6 +808,7 @@
     @include laptop {
       flex: 1;
       height: calc(100vh - 120px);
+      height: calc(var(--ios-height, 100vh) - 120px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -966,6 +971,7 @@
   max-width: 100%;
   overflow: hidden;
   min-height: 100vh;
+  min-height: var(--ios-height, 100vh);
 
   @include tablet {
     padding-top: 60px;
@@ -1221,6 +1227,7 @@
 .home-philosophy {
   position: relative;
   height: 100vh;
+  height: var(--ios-height, 100vh);
   padding-top: 24px;
   padding-bottom: 24px;
 

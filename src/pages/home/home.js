@@ -17,6 +17,38 @@ ScrollTrigger.config({
   ignoreMobileResize: true,
   anticipatePin: 1,
 });
+
+const userAgent = window.navigator.userAgent || "";
+const isIosDevice =
+  /iPhone|iPad|iPod/i.test(userAgent) ||
+  (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+
+// let iosViewportRafId = null;
+
+// const setIosViewportVars = () => {
+//   if (!isIosDevice) return;
+
+//   const viewportHeight = window.visualViewport?.height || window.innerHeight;
+//   document.documentElement.style.setProperty("--ios-vh", `${viewportHeight * 0.01}px`);
+//   document.documentElement.style.setProperty("--ios-height", `${viewportHeight}px`);
+
+//   if (iosViewportRafId !== null) {
+//     cancelAnimationFrame(iosViewportRafId);
+//   }
+
+//   iosViewportRafId = requestAnimationFrame(() => {
+//     ScrollTrigger.refresh();
+//     iosViewportRafId = null;
+//   });
+// };
+
+// if (isIosDevice) {
+//   setIosViewportVars();
+//   window.addEventListener("resize", setIosViewportVars);
+//   window.addEventListener("orientationchange", setIosViewportVars);
+//   window.visualViewport?.addEventListener("resize", setIosViewportVars);
+// }
+
 const formatNumber = (num) => String(num).padStart(2, "0");
 
 /**
@@ -425,34 +457,36 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         "<",
       );
+
     const isEven = (index + 1) % 2 === 0;
     // 2. ЕТАП: ПОСТІЙНИЙ ПЛИН ТА ПІДКРУЧУВАННЯ (Scrub Loop)
     // Починається ПІСЛЯ того, як картка пройшла позначку 60%
+    if (!isIosDevice) {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: "top 40%", // Початок фази плину (стикується з кінцем появи)
+            end: "bottom top", // До повного зникнення зверху
+            scrub: 0.5, // Більша інерція для ефекту "невагомості"
+          },
+        })
+        .to(item, {
+          // Продовжує плисти вгору
+          // Пливемо далі вгору
+          x: isEven ? 10 : -5,
 
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: "top 40%", // Початок фази плину (стикується з кінцем появи)
-          end: "bottom top", // До повного зникнення зверху
-          scrub: 0.5, // Більша інерція для ефекту "невагомості"
-        },
-      })
-      .to(item, {
-        // Продовжує плисти вгору
-        // Пливемо далі вгору
-        x: isEven ? 10 : -5,
-
-        // rotation: isEven ? 2 : -2, // Легке додаткове підкручування
-        ease: "none",
-      })
-      .to(
-        item.querySelector("img"),
-        {
-          filter: "grayscale(30%)",
-        },
-        "<",
-      );
+          // rotation: isEven ? 2 : -2, // Легке додаткове підкручування
+          ease: "none",
+        })
+        .to(
+          item.querySelector("img"),
+          {
+            filter: "grayscale(30%)",
+          },
+          "<",
+        );
+    }
   });
   ScrollTrigger.create({
     trigger: ".home-advantages",
