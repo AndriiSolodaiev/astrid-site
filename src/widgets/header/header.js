@@ -19,27 +19,37 @@ initSmoothScrolling();
 
 document.addEventListener("DOMContentLoaded", () => {
   const langBtn = document.querySelector("[data-lang-switcher]");
-  const btnText = langBtn.querySelector("span");
+  if (!langBtn) return;
+
+  const btnText = langBtn.querySelector("[data-lang-current]");
 
   // Перевіряємо, чи ми зараз на англійській версії
-  const isEnglish = window.location.pathname.includes("/en/");
+  const currentPath = window.location.pathname;
+  const isEnglish = /^\/en(\/|$)/.test(currentPath);
 
-  // Встановлюємо початковий текст кнопки (показуємо ту мову, на яку можна перейти)
-  btnText.textContent = isEnglish ? "EN" : "UA";
+  // Зберігаємо поточну мову для стилів desktop-перемикача
+  langBtn.setAttribute("data-current-lang", isEnglish ? "en" : "uk");
+
+  // Для mobile залишаємо короткий поточний напис
+  if (btnText) {
+    btnText.textContent = isEnglish ? "EN" : "UA";
+  }
 
   langBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
     let newPath;
-    const currentPath = window.location.pathname;
+    const clickPath = window.location.pathname;
+    const isEnglishPath = /^\/en(\/|$)/.test(clickPath);
 
-    if (isEnglish) {
-      // Перемикаємо з EN на UA (видаляємо /en/ з шляху)
-      newPath = currentPath.replace("/en/", "/uk/");
+    if (isEnglishPath) {
+      // Перемикаємо з EN на UA (замінюємо /en/ на /uk/)
+      newPath = clickPath.replace(/^\/en(\/|$)/, "/uk$1");
     } else {
-      // Перемикаємо з UA на EN (додаємо /en/ на початок шляху)
-      // Використовуємо регулярний вираз, щоб уникнути подвійних слешів
-      newPath = "/en" + currentPath.replace(/\/$/, "");
+      // Перемикаємо з UA на EN (замінюємо /uk/ на /en/)
+      newPath = /^\/uk(\/|$)/.test(clickPath)
+        ? clickPath.replace(/^\/uk(\/|$)/, "/en$1")
+        : `/en${clickPath === "/" ? "" : clickPath}`;
     }
     console.log("New path:", window.location.origin + newPath + window.location.search);
     // Очищення зайвих слешів, якщо вони виникли при заміні

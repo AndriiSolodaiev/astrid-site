@@ -37,10 +37,10 @@ const swiperComfort = new Swiper(".swiper-comfort", {
   },
   on: {
     init: function (swiper) {
-      // updateText(swiper, true, ".about-comfort");
+      updateText(swiper, true, ".about-comfort");
     },
     slideChange: function (swiper) {
-      // updateText(swiper, false, ".about-comfort");
+      updateText(swiper, false, ".about-comfort");
     },
   },
 });

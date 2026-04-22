@@ -56,26 +56,30 @@
 }
 
 
-
 .header-bg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 65px;
   transition: all 0.4s ease-out;
   width: 100%;
-  padding: 16px 12px;
+  padding: 0 12px;
   position: relative;
   transition: all 0.4s ease;
   pointer-events: all;
+  background: $accent-color;
+  backdrop-filter: blur(50px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.20);
 
   @include tablet {
-    padding: 20px;
+    padding: 0 20px;
+    height: 88px;
   }
 
   @include laptop {
-    padding: 40px vw(40);
+    padding: 0 vw(40);
     justify-content: space-between;
+    height: clamp(72px, vw(96), 96px);
   }
 
 
@@ -112,13 +116,33 @@
 }
 
 .logo-wrap {
-  background-color: white;
-  padding: 7px 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.20);
+  padding: 12px 20px;
   display: flex;
   align-items: center;
+  height: 100%;
+
+  .tablet-logo {
+    display: none;
+  }
+
+  @include tablet {
+    padding: 20px;
+
+    .tablet-logo {
+      display: block;
+    }
+
+    .mob-logo {
+      display: none;
+    }
+
+    padding-left: 0;
+  }
 
   @include laptop {
-    padding: 7px 28px
+    padding: vw(24) vw(31);
+    padding-left: 0;
   }
 
   svg {
@@ -147,6 +171,15 @@
   @include tablet {
     padding-left: 20px;
     gap: 12px;
+  }
+
+  @include laptop {
+
+    gap: vw(40);
+  }
+
+  @media screen and (min-width: 1366px) {
+    width: 100%;
   }
 }
 
@@ -204,7 +237,7 @@
 .laptop-mode {
   display: none;
 
-  @include laptop {
+  @include tablet {
     display: initial;
   }
 }
@@ -302,15 +335,79 @@
   }
 }
 
+.header-location {
+  display: none;
 
+  @media screen and (min-width: 1366px) {
+    order: -1;
+    margin-right: auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-family: $default-font;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: white;
 
+    .header-loc-svg-wrap {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.10);
 
-
-.menu-btn {
-  @media (hover: hover) {
-    &:hover .menu-burger span {
-      width: 12px;
+      svg {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
     }
+
+  }
+
+
+}
+
+
+
+
+.menu-btn.general-btn {
+  @include tablet {
+    padding-left: 0;
+    gap: 12px;
+    background-color: transparent;
+
+    span.laptop-mode {
+      color: white;
+      margin-top: 2px;
+    }
+
+    &::before {
+      background-color: transparent;
+    }
+  }
+
+  @include laptop {
+    padding-left: vw(40);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+
+
+      .menu-burger span {
+        width: 12px;
+
+      }
+    }
+
   }
 }
 
@@ -325,18 +422,22 @@
     height: 1.5px;
     background-color: $accent-color;
     transition: all 0.3s ease-in-out;
+
+    @include tablet {
+      background-color: white;
+    }
   }
 
   span.middle {
     width: 12px;
   }
 
-  @include laptop {
-    gap: 1px;
+  @include tablet {
+    gap: 1.5px;
 
     span {
       width: 8px;
-      height: 1px;
+
     }
 
     span.middle {
@@ -634,6 +735,80 @@
     height: 48px;
     padding: 0;
     justify-content: center;
+
+    .lang-switcher-mobile-label {
+      display: inline;
+    }
+
+    .lang-switcher-option,
+    .lang-switcher-track {
+      display: none;
+    }
+
+    @include laptop {
+      width: auto;
+      order: -1;
+      padding: 0 0;
+      gap: 8px;
+      background-color: transparent;
+      padding-right: vw(40);
+
+      &::before {
+        display: none;
+      }
+
+      .lang-switcher-mobile-label {
+        display: none;
+      }
+
+      .lang-switcher-option,
+      .lang-switcher-track {
+        display: flex;
+      }
+
+      .lang-switcher-option {
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.68);
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.03em;
+      }
+
+      .lang-switcher-track {
+        position: relative;
+        width: 32px;
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.1);
+        align-items: center;
+      }
+
+      .lang-switcher-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: white;
+        transform: translateX(0);
+        transition: transform 0.25s ease;
+      }
+
+      &[data-current-lang="uk"] {
+        .lang-switcher-option--ua {
+          color: $wc;
+        }
+      }
+
+      &[data-current-lang="en"] {
+        .lang-switcher-option--en {
+          color: $wc;
+        }
+
+        .lang-switcher-dot {
+          transform: translateX(calc(32px - 8px));
+        }
+      }
+    }
   }
 
 
@@ -694,4 +869,15 @@
 section {
   max-width: 100vw;
   overflow: hidden;
+}
+
+.separator {
+  display: none;
+
+  @include laptop {
+    display: block;
+    width: 1px;
+    height: clamp(72px, vw(96), 96px);
+    background-color: rgba(255, 255, 255, 0.20);
+  }
 }
